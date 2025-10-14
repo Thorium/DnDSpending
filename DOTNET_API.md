@@ -1,3 +1,5 @@
+<img width="600" alt="D&D Themed Integration" src="https://github.com/user-attachments/assets/e7eeacf4-d071-4f2f-8d93-383ec39cf2bd" />
+
 # .NET Backend API Integration Guide
 
 This document describes how to integrate the D&D Spending Tracker API with a Microsoft .NET backend for business extensions.
@@ -417,3 +419,5 @@ If the .NET app cannot connect:
 ## 📞 Support
 
 For issues or questions regarding API integration, please open an issue on the GitHub repository.
+
+<img width="600" alt="Character Sheet Example" src="https://github.com/user-attachments/assets/c6b25ef2-1e1e-410a-a53c-5acadcfd8fbe" />

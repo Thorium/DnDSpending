@@ -1,3 +1,5 @@
+<img width="600" alt="D&D Character Sheet" src="https://github.com/user-attachments/assets/c6b25ef2-1e1e-410a-a53c-5acadcfd8fbe" />
+
 # 🎲 D&D Spending Tracker - Feature Summary
 
 ## New Features Added
@@ -30,6 +32,8 @@ The interface now features a classic Dungeons & Dragons aesthetic:
 - **Visual Effects**: Glowing text, ethereal shadows, retro vibes
 - **D&D Imagery**: Dragon and Beholder emojis decorating the background
 - **Immersive Design**: Feel like you're opening an ancient spellbook!
+
+<img width="600" alt="Dragon" src="https://github.com/user-attachments/assets/e7eeacf4-d071-4f2f-8d93-383ec39cf2bd" />
 
 ### 3. 🔌 .NET Backend API Integration
 
@@ -98,6 +102,8 @@ See `DOTNET_API.md` for complete integration guide with code examples.
 **Why Cleric?**
 - Highest Wisdom stat from book spending!
 
+<img width="600" alt="Character Classes" src="https://github.com/user-attachments/assets/e0b1a1f3-ccbb-4645-a22b-9374b5470f31" />
+
 ## Technical Details
 
 ### Alignment Calculation
@@ -131,3 +137,5 @@ For questions or issues:
 ---
 
 *May your spending be wise and your alignment true!* 🎲
+
+<img width="600" alt="Beholder" src="https://github.com/user-attachments/assets/19393ad4-b696-4b8d-9313-88611be50396" />

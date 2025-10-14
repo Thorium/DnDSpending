@@ -1,8 +1,8 @@
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/c6b25ef2-1e1e-410a-a53c-5acadcfd8fbe" />
+
 # DnDSpending
 
 A banking application that transforms your spending data into a Dungeons & Dragons character sheet! This application fetches your transactions via open-banking APIs, analyzes your spending patterns over the past 6 months, and generates a D&D character profile that matches your spending habits.
-
-![D&D Character Sheet](https://github.com/user-attachments/assets/85d93058-e042-4aa7-8d66-a7076f9b2dba)
 
 ## 🎲 Features
 
@@ -25,6 +25,8 @@ A banking application that transforms your spending data into a Dungeons & Drago
 - **Level System**: Your character level is determined by total spending ($1000 = 1 level)
 - **Character Class**: Automatically determined based on your highest stat
 - **🐉 Themed UI**: Dragons, beholders, and classic D&D aesthetics inspired by old BBS games
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/e7eeacf4-d071-4f2f-8d93-383ec39cf2bd" />
 
 ## 🚀 Getting Started
 
@@ -110,6 +112,8 @@ Your character class is determined by your highest stat:
 - **Wizard**: High Intelligence
 - **Cleric**: High Wisdom
 - **Bard**: High Charisma
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/e0b1a1f3-ccbb-4645-a22b-9374b5470f31" />
 
 ## 🔌 API Endpoints
 
@@ -197,6 +201,7 @@ npm run build
 ```bash
 npm test
 ```
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/19393ad4-b696-4b8d-9313-88611be50396" />
 
 ## 🎨 Customization
 
@@ -221,3 +226,5 @@ Contributions, issues, and feature requests are welcome!
 ## 👤 Author
 
 Created as a fun way to gamify personal finance tracking!
+
+![D&D Character Sheet](https://github.com/user-attachments/assets/85d93058-e042-4aa7-8d66-a7076f9b2dba)

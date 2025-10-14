@@ -106,4 +106,52 @@ describe('TransactionCategorizer', () => {
 
     expect(categorizer.categorize(transaction)).toBe(SpendingCategory.BOOKS);
   });
+
+  test('should categorize gambling transactions', () => {
+    const transaction: Transaction = {
+      id: '8',
+      date: new Date(),
+      amount: 50,
+      description: 'DraftKings - Sports Betting',
+      category: ''
+    };
+
+    expect(categorizer.categorize(transaction)).toBe(SpendingCategory.GAMBLING);
+  });
+
+  test('should categorize charity donations', () => {
+    const transaction: Transaction = {
+      id: '9',
+      date: new Date(),
+      amount: 100,
+      description: 'Red Cross Donation',
+      category: ''
+    };
+
+    expect(categorizer.categorize(transaction)).toBe(SpendingCategory.CHARITY);
+  });
+
+  test('should categorize tax payments', () => {
+    const transaction: Transaction = {
+      id: '10',
+      date: new Date(),
+      amount: 500,
+      description: 'IRS Tax Payment',
+      category: ''
+    };
+
+    expect(categorizer.categorize(transaction)).toBe(SpendingCategory.TAXES);
+  });
+
+  test('should categorize insurance premiums', () => {
+    const transaction: Transaction = {
+      id: '11',
+      date: new Date(),
+      amount: 125,
+      description: 'Geico Insurance Premium',
+      category: ''
+    };
+
+    expect(categorizer.categorize(transaction)).toBe(SpendingCategory.INSURANCE);
+  });
 });

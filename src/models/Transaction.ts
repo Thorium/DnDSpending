@@ -17,5 +17,9 @@ export enum SpendingCategory {
   TRAVEL = 'travel',
   EDUCATION = 'education',
   HEALTHCARE = 'healthcare',
+  GAMBLING = 'gambling',
+  CHARITY = 'charity',
+  TAXES = 'taxes',
+  INSURANCE = 'insurance',
   OTHER = 'other'
 }

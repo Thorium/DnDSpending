@@ -50,6 +50,15 @@ export class TransactionService {
       { description: 'Dental Checkup', amount: 150.00 },
       { description: 'Movie Theater Tickets', amount: 28.00 },
       { description: 'Concert - Live Music', amount: 85.00 },
+      { description: 'DraftKings - Sports Betting', amount: 50.00 },
+      { description: 'State Lottery', amount: 25.00 },
+      { description: 'Red Cross Donation', amount: 100.00 },
+      { description: 'UNICEF Charity', amount: 50.00 },
+      { description: 'IRS Tax Payment', amount: 450.00 },
+      { description: 'TV Licence Fee', amount: 159.00 },
+      { description: 'Geico Insurance Premium', amount: 125.00 },
+      { description: 'Geico Insurance Premium', amount: 125.00 },
+      { description: 'State Farm Insurance', amount: 95.00 },
     ];
 
     // Distribute transactions over 6 months

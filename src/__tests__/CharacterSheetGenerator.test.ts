@@ -92,4 +92,43 @@ describe('CharacterSheetGenerator', () => {
       expect(sheet.characterClass).toBe(expectedClass);
     });
   });
+
+  test('should calculate alignment based on spending', () => {
+    const spending = new Map<SpendingCategory, number>();
+    const sheet = generator.generateCharacterSheet('Player', spending);
+    
+    expect(sheet.alignment).toBeDefined();
+    expect(sheet.alignment.lawfulChaotic).toBeDefined();
+    expect(sheet.alignment.goodEvil).toBeDefined();
+    expect(sheet.alignment.full).toBeDefined();
+    expect(sheet.alignment.score).toBeDefined();
+  });
+
+  test('should lean towards Good alignment with charity spending', () => {
+    const spending = new Map<SpendingCategory, number>();
+    spending.set(SpendingCategory.CHARITY, 1000);
+    
+    const sheet = generator.generateCharacterSheet('Philanthropist', spending);
+    
+    expect(sheet.alignment.goodEvil).toBe('Good');
+  });
+
+  test('should lean towards Lawful alignment with tax and insurance spending', () => {
+    const spending = new Map<SpendingCategory, number>();
+    spending.set(SpendingCategory.TAXES, 2000);
+    spending.set(SpendingCategory.INSURANCE, 1500);
+    
+    const sheet = generator.generateCharacterSheet('Organized', spending);
+    
+    expect(sheet.alignment.lawfulChaotic).toBe('Lawful');
+  });
+
+  test('should lean towards Chaotic alignment with gambling spending', () => {
+    const spending = new Map<SpendingCategory, number>();
+    spending.set(SpendingCategory.GAMBLING, 1000);
+    
+    const sheet = generator.generateCharacterSheet('Gambler', spending);
+    
+    expect(sheet.alignment.lawfulChaotic).toBe('Chaotic');
+  });
 });

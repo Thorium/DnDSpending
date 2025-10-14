@@ -8,6 +8,11 @@ export class TransactionCategorizer {
 
   constructor() {
     this.categoryKeywords = new Map([
+      // Check more specific categories first
+      [SpendingCategory.GAMBLING, ['casino', 'lottery', 'betting', 'poker', 'draftkings', 'fanduel', 'gambling']],
+      [SpendingCategory.CHARITY, ['charity', 'donation', 'red cross', 'unicef', 'goodwill', 'nonprofit', 'foundation']],
+      [SpendingCategory.TAXES, ['irs', 'tax', 'revenue', 'hmrc', 'government fee', 'license fee', 'tv licence']],
+      [SpendingCategory.INSURANCE, ['insurance premium', 'insurance policy', 'geico', 'state farm', 'allstate']],
       [SpendingCategory.BOOKS, ['book', 'bookstore', 'amazon books', 'barnes', 'library', 'kindle', 'audible']],
       [SpendingCategory.COSMETICS, ['cosmetics', 'beauty', 'makeup', 'salon', 'spa', 'sephora', 'ulta', 'haircut']],
       [SpendingCategory.GYM, ['gym', 'fitness', 'planet fitness', 'la fitness', 'crunch', 'equinox', 'yoga']],
@@ -17,7 +22,7 @@ export class TransactionCategorizer {
       [SpendingCategory.ENTERTAINMENT, ['theater', 'cinema', 'movie', 'concert', 'netflix', 'spotify', 'gaming', 'steam']],
       [SpendingCategory.TRAVEL, ['airline', 'hotel', 'airbnb', 'uber', 'lyft', 'rental car', 'travel']],
       [SpendingCategory.EDUCATION, ['university', 'college', 'course', 'udemy', 'coursera', 'tuition', 'school']],
-      [SpendingCategory.HEALTHCARE, ['hospital', 'doctor', 'pharmacy', 'medical', 'dental', 'insurance', 'cvs', 'walgreens']]
+      [SpendingCategory.HEALTHCARE, ['hospital', 'doctor', 'pharmacy', 'medical', 'dental', 'cvs', 'walgreens']]
     ]);
   }
 

@@ -1,4 +1,4 @@
-import { CharacterSheet, DnDStats, BASE_STAT } from '../models/CharacterSheet';
+import { CharacterSheet, DnDStats, BASE_STAT, Alignment } from '../models/CharacterSheet';
 import { SpendingCategory } from '../models/Transaction';
 
 /**
@@ -12,6 +12,84 @@ export class CharacterSheetGenerator {
    */
   private calculateStatBonus(amount: number): number {
     return Math.floor(amount / 100);
+  }
+
+  /**
+   * Calculates alignment based on spending patterns and income consistency
+   */
+  private calculateAlignment(spending: Map<SpendingCategory, number>, transactions?: any[]): Alignment {
+    const scores = {
+      lawful: 0,
+      chaotic: 0,
+      good: 0,
+      evil: 0
+    };
+
+    // Lawful: Taxes, insurance, regular payments, organized spending
+    scores.lawful += (spending.get(SpendingCategory.TAXES) || 0) * 0.01;
+    scores.lawful += (spending.get(SpendingCategory.INSURANCE) || 0) * 0.008;
+    scores.lawful += (spending.get(SpendingCategory.HEALTHCARE) || 0) * 0.003;
+    
+    // Chaotic: Gambling, spontaneous entertainment, travel
+    scores.chaotic += (spending.get(SpendingCategory.GAMBLING) || 0) * 0.015;
+    scores.chaotic += (spending.get(SpendingCategory.ENTERTAINMENT) || 0) * 0.005;
+    scores.chaotic += (spending.get(SpendingCategory.TRAVEL) || 0) * 0.004;
+    
+    // Good: Charity, healthcare, education
+    scores.good += (spending.get(SpendingCategory.CHARITY) || 0) * 0.02;
+    scores.good += (spending.get(SpendingCategory.HEALTHCARE) || 0) * 0.003;
+    scores.good += (spending.get(SpendingCategory.EDUCATION) || 0) * 0.004;
+    
+    // Evil: Gambling (selfish), excessive cosmetics (vanity)
+    scores.evil += (spending.get(SpendingCategory.GAMBLING) || 0) * 0.008;
+    scores.evil += (spending.get(SpendingCategory.COSMETICS) || 0) * 0.003;
+
+    // Income consistency affects lawful/chaotic
+    if (transactions && transactions.length > 0) {
+      const incomeTransactions = transactions.filter(t => t.amount < 0); // Income is negative
+      if (incomeTransactions.length > 0) {
+        const incomeVariance = this.calculateIncomeVariance(incomeTransactions);
+        // Low variance = consistent income = lawful
+        // High variance = inconsistent income = chaotic
+        if (incomeVariance < 0.3) {
+          scores.lawful += 10;
+        } else if (incomeVariance > 0.7) {
+          scores.chaotic += 10;
+        }
+      }
+    }
+
+    // Determine alignment axis values
+    const lawfulChaotic = scores.lawful > scores.chaotic + 5 ? 'Lawful' : 
+                          scores.chaotic > scores.lawful + 5 ? 'Chaotic' : 'Neutral';
+    
+    const goodEvil = scores.good > scores.evil + 3 ? 'Good' : 
+                     scores.evil > scores.good + 3 ? 'Evil' : 'Neutral';
+    
+    const full = lawfulChaotic === 'Neutral' && goodEvil === 'Neutral' ? 
+                 'True Neutral' : `${lawfulChaotic} ${goodEvil}`;
+
+    return {
+      lawfulChaotic,
+      goodEvil,
+      full,
+      score: scores
+    };
+  }
+
+  /**
+   * Calculates income variance for consistency measurement
+   */
+  private calculateIncomeVariance(incomeTransactions: any[]): number {
+    if (incomeTransactions.length < 2) return 0;
+    
+    const amounts = incomeTransactions.map(t => Math.abs(t.amount));
+    const mean = amounts.reduce((sum, val) => sum + val, 0) / amounts.length;
+    const variance = amounts.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / amounts.length;
+    const stdDev = Math.sqrt(variance);
+    
+    // Return coefficient of variation (normalized variance)
+    return mean > 0 ? stdDev / mean : 0;
   }
 
   /**
@@ -116,13 +194,15 @@ export class CharacterSheetGenerator {
    */
   generateCharacterSheet(
     playerName: string,
-    spending: Map<SpendingCategory, number>
+    spending: Map<SpendingCategory, number>,
+    transactions?: any[]
   ): CharacterSheet {
     const stats = this.mapSpendingToStats(spending);
     const totalSpending = Array.from(spending.values()).reduce((sum, val) => sum + val, 0);
     const level = this.calculateLevel(totalSpending);
     const characterClass = this.determineCharacterClass(stats);
     const description = this.generateDescription(characterClass, stats);
+    const alignment = this.calculateAlignment(spending, transactions);
 
     const spendingBreakdown: Record<string, number> = {};
     spending.forEach((value, key) => {
@@ -133,6 +213,7 @@ export class CharacterSheetGenerator {
       name: playerName,
       level,
       stats,
+      alignment,
       totalSpending,
       spendingBreakdown,
       characterClass,

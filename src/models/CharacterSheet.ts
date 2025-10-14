@@ -7,10 +7,23 @@ export interface DnDStats {
   charisma: number;      // Force of personality (cosmetics, entertainment)
 }
 
+export interface Alignment {
+  lawfulChaotic: string;  // 'Lawful', 'Neutral', or 'Chaotic'
+  goodEvil: string;       // 'Good', 'Neutral', or 'Evil'
+  full: string;           // Combined alignment (e.g., 'Lawful Good')
+  score: {
+    lawful: number;       // Lawful score (higher = more lawful)
+    chaotic: number;      // Chaotic score (higher = more chaotic)
+    good: number;         // Good score (higher = more good)
+    evil: number;         // Evil score (higher = more evil)
+  };
+}
+
 export interface CharacterSheet {
   name: string;
   level: number;
   stats: DnDStats;
+  alignment: Alignment;
   totalSpending: number;
   spendingBreakdown: Record<string, number>;
   characterClass: string;

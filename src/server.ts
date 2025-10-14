@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import path from 'path';
 import { TransactionService } from './services/TransactionService';
 import { TransactionCategorizer } from './services/TransactionCategorizer';
@@ -13,6 +14,7 @@ const categorizer = new TransactionCategorizer();
 const characterGenerator = new CharacterSheetGenerator();
 
 // Middleware
+app.use(cors()); // Enable CORS for all routes (for .NET backend integration)
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -34,7 +36,7 @@ app.get('/api/character-sheet', async (req: Request, res: Response) => {
     const spending = categorizer.categorizeTransactions(recentTransactions);
     
     // Generate character sheet
-    const characterSheet = characterGenerator.generateCharacterSheet(playerName, spending);
+    const characterSheet = characterGenerator.generateCharacterSheet(playerName, spending, recentTransactions);
     
     res.json({
       success: true,

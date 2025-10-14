@@ -2,6 +2,8 @@
 
 A banking application that transforms your spending data into a Dungeons & Dragons character sheet! This application fetches your transactions via open-banking APIs, analyzes your spending patterns over the past 6 months, and generates a D&D character profile that matches your spending habits.
 
+![D&D Character Sheet](https://github.com/user-attachments/assets/85d93058-e042-4aa7-8d66-a7076f9b2dba)
+
 ## 🎲 Features
 
 - **Transaction Fetching**: Integrates with open banking APIs to fetch your transaction history
@@ -13,9 +15,16 @@ A banking application that transforms your spending data into a Dungeons & Drago
   - 🧠 **Intelligence**: Spending on technology and education
   - 📖 **Wisdom**: Spending on books and education
   - ✨ **Charisma**: Spending on cosmetics and entertainment
-- **Character Sheet Display**: Beautiful web interface displaying your D&D character
+- **Alignment System**: Your D&D alignment (Lawful/Chaotic, Good/Evil) based on spending:
+  - **Lawful**: Taxes, insurance, healthcare (organized, rule-following)
+  - **Chaotic**: Gambling, spontaneous entertainment (unpredictable)
+  - **Good**: Charity, education, healthcare (altruistic)
+  - **Evil**: Excessive gambling, vanity spending (selfish)
+  - Income consistency also affects alignment (consistent = lawful, irregular = chaotic)
+- **Character Sheet Display**: Beautiful web interface with retro D&D theme (black-purple-green like classic ASCII games)
 - **Level System**: Your character level is determined by total spending ($1000 = 1 level)
 - **Character Class**: Automatically determined based on your highest stat
+- **🐉 Themed UI**: Dragons, beholders, and classic D&D aesthetics inspired by old BBS games
 
 ## 🚀 Getting Started
 
@@ -73,6 +82,10 @@ The application categorizes your transactions into the following categories:
 - **Travel**: Airlines, hotels, ride-sharing
 - **Education**: Courses, tuition, online learning
 - **Healthcare**: Doctors, pharmacies, medical services
+- **Gambling**: Casinos, sports betting, lottery (affects alignment: chaotic/evil)
+- **Charity**: Donations, non-profits (affects alignment: good)
+- **Taxes**: Government fees, tax payments, licenses (affects alignment: lawful)
+- **Insurance**: Insurance premiums (affects alignment: lawful)
 
 ### Character Stats Calculation
 
@@ -102,17 +115,38 @@ Your character class is determined by your highest stat:
 
 ### Get Character Sheet
 ```
-GET /api/character-sheet?name={playerName}
+GET /api/character-sheet?name={playerName}&userId={userId}
 ```
 
-Returns a complete D&D character sheet based on spending data.
+Returns a complete D&D character sheet based on spending data, including alignment.
+
+**Response includes:**
+- Character name, level, class
+- Six D&D stats (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma)
+- **Alignment** (e.g., "Lawful Good", "Chaotic Neutral")
+- Spending breakdown by category
+- Total spending amount
 
 ### Get Transactions
 ```
-GET /api/transactions
+GET /api/transactions?userId={userId}
 ```
 
 Returns all categorized transactions from the past 6 months.
+
+### 💼 .NET Backend Integration
+
+For integrating this API with Microsoft .NET backend applications, see the comprehensive guide:
+
+**[📘 .NET API Integration Documentation](DOTNET_API.md)**
+
+The guide includes:
+- Complete API specifications
+- C# code examples (HttpClient, Minimal API, ASP.NET Core)
+- CORS configuration
+- Docker deployment
+- Business extension ideas
+- Security best practices
 
 ## 🛠️ Configuration
 

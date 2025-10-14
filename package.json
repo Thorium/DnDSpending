@@ -1,0 +1,33 @@
+{
+  "name": "dndspending",
+  "version": "1.0.0",
+  "description": "A banking application that transforms your spending data into a D&D character sheet",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "dnd",
+    "banking",
+    "open-banking",
+    "spending-analytics",
+    "character-sheet"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.2",
+    "express": "^5.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.5"
+  }
+}

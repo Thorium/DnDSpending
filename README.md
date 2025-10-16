@@ -22,9 +22,10 @@ A banking application that transforms your spending data into a Dungeons & Drago
   - **Evil**: Excessive gambling, vanity spending (selfish)
   - Income consistency also affects alignment (consistent = lawful, irregular = chaotic)
 - **Character Sheet Display**: Beautiful web interface with retro D&D theme (black-purple-green like classic ASCII games)
+- **Multi-Currency Support**: Supports multiple currencies (USD, GBP) with appropriate currency symbols
 - **Level System**: Your character level is determined by total spending ($1000 = 1 level)
 - **Character Class**: Automatically determined based on your highest stat
-- **🐉 Themed UI**: Dragons, beholders, and classic D&D aesthetics inspired by old BBS games
+- **🐉 Themed UI**: Dragons, beholders, and classic D&D aesthetics inspired to old BBS games
 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/e7eeacf4-d071-4f2f-8d93-383ec39cf2bd" />
 
@@ -119,15 +120,21 @@ Your character class is determined by your highest stat:
 
 ### Get Character Sheet
 ```
-GET /api/character-sheet?name={playerName}&userId={userId}
+GET /api/character-sheet?name={playerName}&userId={userId}&currency={currency}
 ```
 
 Returns a complete D&D character sheet based on spending data, including alignment.
+
+**Query Parameters:**
+- `name` (optional): Player name (default: "Adventurer")
+- `userId` (optional): User identifier (default: "demo-user")
+- `currency` (optional): ISO currency code (default: "USD"). Supported: USD, GBP
 
 **Response includes:**
 - Character name, level, class
 - Six D&D stats (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma)
 - **Alignment** (e.g., "Lawful Good", "Chaotic Neutral")
+- **Currency** (ISO code: USD, GBP, etc.)
 - Spending breakdown by category
 - Total spending amount
 

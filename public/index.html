@@ -323,6 +323,10 @@
 
         <div class="controls">
             <input type="text" id="playerName" placeholder="Enter your name" value="Adventurer">
+            <select id="currencySelect" style="padding: 10px; font-size: 1em; border: 2px solid #6aff6a; border-radius: 5px; margin: 0 10px; background: rgba(26, 26, 46, 0.9); color: #6aff6a;">
+                <option value="USD">USD ($)</option>
+                <option value="GBP">GBP (£)</option>
+            </select>
             <button onclick="loadCharacterSheet()">Generate Character Sheet</button>
         </div>
 
@@ -395,7 +399,7 @@
                     <h3>Spending Breakdown (Last 6 Months)</h3>
                     <div id="spendingItems"></div>
                     <div class="total-spending">
-                        Total: $<span id="totalSpending">0</span>
+                        Total: <span id="totalSpending">$0</span>
                     </div>
                 </div>
 
@@ -409,6 +413,15 @@
     </div>
 
     <script>
+        function getCurrencySymbol(currency) {
+            const symbols = {
+                'USD': '$',
+                'GBP': '£',
+                'EUR': '€'
+            };
+            return symbols[currency] || '$';
+        }
+
         function calculateModifier(stat) {
             return Math.floor((stat - 10) / 2);
         }
@@ -425,13 +438,14 @@
 
         async function loadCharacterSheet() {
             const playerName = document.getElementById('playerName').value || 'Adventurer';
+            const currency = document.getElementById('currencySelect').value || 'USD';
             
             document.getElementById('loading').style.display = 'block';
             document.getElementById('error').style.display = 'none';
             document.getElementById('characterSheet').style.display = 'none';
 
             try {
-                const response = await fetch(`/api/character-sheet?name=${encodeURIComponent(playerName)}`);
+                const response = await fetch(`/api/character-sheet?name=${encodeURIComponent(playerName)}&currency=${encodeURIComponent(currency)}`);
                 const result = await response.json();
 
                 if (!result.success) {
@@ -439,6 +453,7 @@
                 }
 
                 const data = result.data;
+                const currencySymbol = getCurrencySymbol(data.currency);
                 
                 // Update character info
                 document.getElementById('charName').textContent = data.name;
@@ -477,13 +492,13 @@
                         item.className = 'spending-item';
                         item.innerHTML = `
                             <span class="spending-category">${formatCategoryName(category)}</span>
-                            <span class="spending-amount">$${amount.toFixed(2)}</span>
+                            <span class="spending-amount">${currencySymbol}${amount.toFixed(2)}</span>
                         `;
                         spendingItems.appendChild(item);
                     }
                 }
 
-                document.getElementById('totalSpending').textContent = data.totalSpending.toFixed(2);
+                document.getElementById('totalSpending').textContent = currencySymbol + data.totalSpending.toFixed(2);
 
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('characterSheet').style.display = 'block';

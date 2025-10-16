@@ -195,7 +195,8 @@ export class CharacterSheetGenerator {
   generateCharacterSheet(
     playerName: string,
     spending: Map<SpendingCategory, number>,
-    transactions?: any[]
+    transactions?: any[],
+    currency: string = 'USD'
   ): CharacterSheet {
     const stats = this.mapSpendingToStats(spending);
     const totalSpending = Array.from(spending.values()).reduce((sum, val) => sum + val, 0);
@@ -217,7 +218,8 @@ export class CharacterSheetGenerator {
       totalSpending,
       spendingBreakdown,
       characterClass,
-      description
+      description,
+      currency
     };
   }
 }

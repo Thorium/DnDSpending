@@ -131,4 +131,25 @@ describe('CharacterSheetGenerator', () => {
     
     expect(sheet.alignment.lawfulChaotic).toBe('Chaotic');
   });
+
+  test('should default to USD currency when no currency provided', () => {
+    const spending = new Map<SpendingCategory, number>();
+    const sheet = generator.generateCharacterSheet('Player', spending);
+    
+    expect(sheet.currency).toBe('USD');
+  });
+
+  test('should accept and store GBP currency', () => {
+    const spending = new Map<SpendingCategory, number>();
+    const sheet = generator.generateCharacterSheet('Player', spending, undefined, 'GBP');
+    
+    expect(sheet.currency).toBe('GBP');
+  });
+
+  test('should accept and store any currency code', () => {
+    const spending = new Map<SpendingCategory, number>();
+    const sheet = generator.generateCharacterSheet('Player', spending, undefined, 'EUR');
+    
+    expect(sheet.currency).toBe('EUR');
+  });
 });

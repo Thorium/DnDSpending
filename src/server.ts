@@ -25,6 +25,7 @@ app.get('/api/character-sheet', async (req: Request, res: Response) => {
   try {
     const userId = req.query.userId as string || 'demo-user';
     const playerName = req.query.name as string || 'Adventurer';
+    const currency = (req.query.currency as string || 'USD').toUpperCase();
 
     // Fetch transactions
     const transactions = await transactionService.fetchTransactions(userId);
@@ -36,7 +37,7 @@ app.get('/api/character-sheet', async (req: Request, res: Response) => {
     const spending = categorizer.categorizeTransactions(recentTransactions);
     
     // Generate character sheet
-    const characterSheet = characterGenerator.generateCharacterSheet(playerName, spending, recentTransactions);
+    const characterSheet = characterGenerator.generateCharacterSheet(playerName, spending, recentTransactions, currency);
     
     res.json({
       success: true,

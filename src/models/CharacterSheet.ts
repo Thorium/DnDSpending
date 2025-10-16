@@ -28,6 +28,7 @@ export interface CharacterSheet {
   spendingBreakdown: Record<string, number>;
   characterClass: string;
   description: string;
+  currency: string; // ISO currency code (USD, GBP, etc.)
 }
 
 export const BASE_STAT = 10;
